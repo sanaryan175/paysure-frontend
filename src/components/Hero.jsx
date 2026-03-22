@@ -1,8 +1,4 @@
-import { useNavigate } from 'react-router-dom';
-
 export default function Hero() {
-  const navigate = useNavigate();
-
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
     if (!el) return;
@@ -42,7 +38,7 @@ export default function Hero() {
           <div className="flex items-center gap-3">
             <button
               type="button"
-              onClick={() => navigate('/loan-risk')}
+              onClick={() => scrollToSection('features')}
               style={{ background: 'linear-gradient(135deg, var(--gold-mid), var(--gold-light))', color: '#fff', border: 'none', borderRadius: '10px', padding: '13px 28px', fontSize: '15px', fontWeight: 700, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px', fontFamily: 'DM Sans, sans-serif', transition: 'all .15s' }}
               onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(201,162,39,0.3)'; }}
               onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}>
@@ -50,15 +46,6 @@ export default function Hero() {
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
               </svg>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => scrollToSection('features')}
-              style={{ background: '#fff', color: 'var(--text-primary)', border: '1.5px solid var(--border-mid)', borderRadius: '10px', padding: '12px 24px', fontSize: '15px', fontWeight: 500, cursor: 'pointer', fontFamily: 'DM Sans, sans-serif', transition: 'all .15s' }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--gold-mid)'; e.currentTarget.style.color = 'var(--gold-deep)'; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border-mid)'; e.currentTarget.style.color = 'var(--text-primary)'; }}>
-              Explore Features
             </button>
           </div>
 
