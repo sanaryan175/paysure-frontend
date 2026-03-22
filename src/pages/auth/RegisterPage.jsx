@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../context/AuthContext.jsx';
 
 export default function RegisterPage() {
   const { register } = useAuth();
   const navigate     = useNavigate();
+  const location     = useLocation();
+  const returnTo     = location.state?.from || '/';
 
   const [form,    setForm]    = useState({ name: '', email: '', password: '' });
   const [showPass, setShowPass] = useState(false);
