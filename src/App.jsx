@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider }  from './context/AuthContext.jsx';
 import ProtectedRoute    from './pages/auth/ProtectedRoute.jsx';
@@ -30,17 +31,14 @@ function LandingPage() {
     </>
   );
 }
-useEffect(() => {
-  const fetchPing = async () => {
-    try {
-      await fetch(`${import.meta.env.VITE_API_URL}/ping`);
-    } catch (error) {
-      console.error('Error fetching ping:', error);
-    }
-  };
-  fetchPing();
-}, []);
+
 export default function App() {
+  useEffect(() => {
+    const base = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    const pingUrl = `${base.replace(/\/$/, '')}/ping`;
+    fetch(pingUrl).catch((err) => console.error('Error fetching ping:', err));
+  }, []);
+
   return (
     <BrowserRouter>
       <AuthProvider>
