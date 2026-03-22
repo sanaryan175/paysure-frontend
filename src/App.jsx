@@ -30,7 +30,16 @@ function LandingPage() {
     </>
   );
 }
-
+useEffect(() => {
+  const fetchPing = async () => {
+    try {
+      await fetch(`${import.meta.env.VITE_API_URL}/ping`);
+    } catch (error) {
+      console.error('Error fetching ping:', error);
+    }
+  };
+  fetchPing();
+}, []);
 export default function App() {
   return (
     <BrowserRouter>
