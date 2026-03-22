@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-page:      #faf8f4;
+  --bg-white:     #ffffff;
+  --bg-cream:     #f5f2eb;
+  --bg-dark:      #1c1a17;
+  --bg-darker:    #141210;
+
+  --gold-deep:    #b8942a;
+  --gold-mid:     #c9a227;
+  --gold-light:   #e0bb42;
+  --gold-pale:    #fdf8ec;
+  --gold-border:  #e8d48a;
+
+  --text-primary:   #1c1a17;
+  --text-secondary: #7a7060;
+  --text-muted:     #a09880;
+  --text-faint:     #5a5248;
+
+  --border-light:   #ece8e0;
+  --border-mid:     #e0dbd0;
+  --border-warm:    #e8e3d8;
+
+  --red:        #b83232;
+  --red-pale:   #fdf0f0;
+  --red-border: #f5c0b0;
+  --green:      #1a7a3c;
+  --green-pale: #f0faf3;
+  --green-border:#a7e0be;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 { font-family: 'Syne', sans-serif; }
+.font-mono   { font-family: 'DM Mono', monospace; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-page); }
+::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 2px; }

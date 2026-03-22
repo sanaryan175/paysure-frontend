@@ -1,0 +1,47 @@
+const steps = ['Financial Details', 'Loan Details', 'Upload Document'];
+
+export default function StepIndicator({ currentStep }) {
+  return (
+    <div className="flex items-center justify-center gap-0 mb-10">
+      {steps.map((label, idx) => {
+        const step     = idx + 1;
+        const done     = step < currentStep;
+        const active   = step === currentStep;
+
+        return (
+          <div key={label} className="flex items-center">
+            {/* Circle */}
+            <div className="flex flex-col items-center">
+              <div
+                className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold transition-all"
+                style={{
+                  background: done || active
+                    ? 'linear-gradient(135deg, var(--gold-mid), var(--gold-light))'
+                    : '#fff',
+                  border: done || active ? 'none' : '1.5px solid var(--border-mid)',
+                  color:  done || active ? '#fff' : 'var(--text-muted)',
+                }}>
+                {done
+                  ? <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
+                  : step}
+              </div>
+              <span
+                className="text-xs font-medium mt-1.5 whitespace-nowrap"
+                style={{ color: active ? 'var(--gold-deep)' : 'var(--text-muted)' }}>
+                {label}
+              </span>
+            </div>
+
+            {/* Connector line */}
+            {idx < steps.length - 1 && (
+              <div
+                className="w-16 h-px mx-2 mb-5 transition-all"
+                style={{ background: done ? 'var(--gold-mid)' : 'var(--border-light)' }}
+              />
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
