@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 export default function RegisterPage() {
@@ -22,7 +22,7 @@ export default function RegisterPage() {
     setError('');
     try {
       await register(form.name, form.email, form.password);
-      navigate('/loan-risk', { replace: true });
+      navigate(returnTo, { replace: true });
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed. Please try again.');
     } finally {
@@ -169,7 +169,7 @@ export default function RegisterPage() {
         {/* Switch to login */}
         <p style={{ textAlign: 'center', fontSize: '14px', color: 'var(--text-secondary)', marginTop: '20px' }}>
           Already have an account?{' '}
-          <Link to="/login" style={{ color: 'var(--gold-deep)', fontWeight: 700, textDecoration: 'none' }}>
+          <Link to="/login" state={{ from: returnTo }} style={{ color: 'var(--gold-deep)', fontWeight: 700, textDecoration: 'none' }}>
             Login
           </Link>
         </p>

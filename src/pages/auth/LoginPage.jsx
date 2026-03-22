@@ -6,7 +6,8 @@ export default function LoginPage() {
   const { login } = useAuth();
   const navigate  = useNavigate();
   const location  = useLocation();
-  const from = location.state?.from || '/loan-risk';
+  /** Navbar login → landing `/`. Protected route → return to where they were going. */
+  const returnTo = location.state?.from || '/';
 
   const [form,     setForm]     = useState({ email: '', password: '' });
   const [showPass, setShowPass] = useState(false);
@@ -23,7 +24,7 @@ export default function LoginPage() {
     setLoading(true); setError('');
     try {
       await login(form.email, form.password);
-      navigate(from, { replace: true });
+      navigate(returnTo, { replace: true });
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed. Please try again.');
     } finally {
@@ -163,7 +164,7 @@ export default function LoginPage() {
         {/* Switch to register */}
         <p style={{ textAlign: 'center', fontSize: '14px', color: 'var(--text-secondary)', marginTop: '20px' }}>
           Don't have an account?{' '}
-          <Link to="/register" style={{ color: 'var(--gold-deep)', fontWeight: 700, textDecoration: 'none' }}>
+          <Link to="/register" state={{ from: returnTo }} style={{ color: 'var(--gold-deep)', fontWeight: 700, textDecoration: 'none' }}>
             Sign up free
           </Link>
         </p>
