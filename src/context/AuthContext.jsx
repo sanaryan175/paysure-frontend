@@ -7,10 +7,13 @@ export function AuthProvider({ children }) {
   const [user,    setUser]    = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // On app load — restore session from localStorage
+  // Session ends when the tab/window is closed (sessionStorage, not localStorage)
   useEffect(() => {
-    const token = localStorage.getItem('paysure_token');
-    const saved = localStorage.getItem('paysure_user');
+    localStorage.removeItem('paysure_token');
+    localStorage.removeItem('paysure_user');
+
+    const token = sessionStorage.getItem('paysure_token');
+    const saved = sessionStorage.getItem('paysure_user');
     if (token && saved) {
       setUser(JSON.parse(saved));
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -21,8 +24,8 @@ export function AuthProvider({ children }) {
   const login = async (email, password) => {
     const res = await api.post('/auth/login', { email, password });
     const { token, user } = res.data;
-    localStorage.setItem('paysure_token', token);
-    localStorage.setItem('paysure_user', JSON.stringify(user));
+    sessionStorage.setItem('paysure_token', token);
+    sessionStorage.setItem('paysure_user', JSON.stringify(user));
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     setUser(user);
     return res.data;
@@ -31,16 +34,16 @@ export function AuthProvider({ children }) {
   const register = async (name, email, password) => {
     const res = await api.post('/auth/register', { name, email, password });
     const { token, user } = res.data;
-    localStorage.setItem('paysure_token', token);
-    localStorage.setItem('paysure_user', JSON.stringify(user));
+    sessionStorage.setItem('paysure_token', token);
+    sessionStorage.setItem('paysure_user', JSON.stringify(user));
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     setUser(user);
     return res.data;
   };
 
   const logout = () => {
-    localStorage.removeItem('paysure_token');
-    localStorage.removeItem('paysure_user');
+    sessionStorage.removeItem('paysure_token');
+    sessionStorage.removeItem('paysure_user');
     delete api.defaults.headers.common['Authorization'];
     setUser(null);
   };
