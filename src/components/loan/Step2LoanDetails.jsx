@@ -34,7 +34,7 @@ export default function Step2LoanDetails({ data, errors, onChange, onToggleHasDo
         <p style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-faint)', marginBottom: '12px' }}>
           Do you have a loan document to upload?
         </p>
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           {[
             { val: false, label: "No — I'm just exploring", icon: '🔍' },
             { val: true,  label: 'Yes — I have a document', icon: '📄' },
@@ -83,7 +83,7 @@ export default function Step2LoanDetails({ data, errors, onChange, onToggleHasDo
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-x-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-0 sm:gap-x-5 gap-y-1 sm:gap-y-0">
         <FormField
           label="Loan Amount"
           hint={hasDocument ? '(optional)' : ''}
@@ -124,7 +124,7 @@ export default function Step2LoanDetails({ data, errors, onChange, onToggleHasDo
 
       {/* Live EMI preview */}
       {emi && (
-        <div className="rounded-2xl p-4 mt-2 flex items-center justify-between"
+        <div className="rounded-2xl p-4 mt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2"
           style={{ background: 'var(--gold-pale)', border: '1px solid var(--gold-border)' }}>
           <div>
             <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-faint)' }}>
@@ -134,7 +134,7 @@ export default function Step2LoanDetails({ data, errors, onChange, onToggleHasDo
               Based on values above
             </p>
           </div>
-          <span style={{ fontFamily: 'DM Mono, monospace', fontSize: '22px', fontWeight: 600, color: 'var(--gold-deep)' }}>
+          <span className="text-xl sm:text-[22px]" style={{ fontFamily: 'DM Mono, monospace', fontWeight: 600, color: 'var(--gold-deep)' }}>
             ₹{emi}
           </span>
         </div>

@@ -14,28 +14,28 @@ export default function Hero() {
 
       <div className="absolute top-0 left-0 right-0 h-0.5"
         style={{ background: 'linear-gradient(90deg, var(--gold-mid), var(--gold-light), var(--gold-mid))' }} />
-      <div className="absolute pointer-events-none"
-        style={{ top: '-60px', right: '-40px', width: '480px', height: '480px', background: 'radial-gradient(circle, rgba(224,187,66,0.07) 0%, transparent 65%)' }} />
+      <div className="absolute pointer-events-none hidden sm:block"
+        style={{ top: '-60px', right: '-40px', width: 'min(480px, 90vw)', height: 'min(480px, 90vw)', background: 'radial-gradient(circle, rgba(224,187,66,0.07) 0%, transparent 65%)' }} />
 
-      <div className="relative max-w-7xl mx-auto px-12 py-24 grid grid-cols-2 gap-16 items-center" style={{ zIndex: 1 }}>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-12 sm:py-16 lg:py-24 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center" style={{ zIndex: 1 }}>
 
-        <div>
-          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6"
+        <div className="text-center lg:text-left">
+          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-5 sm:mb-6"
             style={{ background: 'var(--gold-pale)', border: '1px solid var(--gold-border)', fontSize: '11.5px', fontWeight: 700, color: 'var(--gold-deep)', letterSpacing: '0.6px', textTransform: 'uppercase' }}>
-            <span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--gold-mid)', animation: 'pulse 2s infinite' }} />
+            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: 'var(--gold-mid)' }} />
             Financial Risk Analysis Platform
           </div>
 
-          <h1 style={{ fontSize: '50px', lineHeight: '1.07', letterSpacing: '-2px', color: 'var(--text-primary)', marginBottom: '18px' }}>
-            Know the risk<br />before you<br />
+          <h1 className="text-[clamp(2rem,6vw,3.125rem)] leading-[1.08] tracking-tight sm:tracking-[-0.06em] text-[var(--text-primary)] mb-4 sm:mb-[18px]" style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800 }}>
+            Know the risk<br className="hidden sm:block" /> before you<br className="hidden sm:block" />{' '}
             <span style={{ color: 'var(--gold-mid)' }}>commit money.</span>
           </h1>
 
-          <p style={{ color: 'var(--text-secondary)', fontSize: '16px', lineHeight: '1.7', maxWidth: '440px', marginBottom: '34px' }}>
+          <p className="mx-auto lg:mx-0 text-[15px] sm:text-base max-w-[440px]" style={{ color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '28px' }}>
             Evaluate loans, detect scams, and analyze agreements — with clear, AI-driven insights before making any financial decision.
           </p>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center lg:justify-start gap-3">
             <button
               type="button"
               onClick={() => scrollToSection('features')}
@@ -49,10 +49,10 @@ export default function Hero() {
             </button>
           </div>
 
-          <div className="flex gap-9 mt-10 pt-8" style={{ borderTop: '1px solid var(--border-light)' }}>
+          <div className="flex flex-wrap justify-center lg:justify-start gap-6 sm:gap-9 mt-8 sm:mt-10 pt-6 sm:pt-8" style={{ borderTop: '1px solid var(--border-light)' }}>
             {[['10s', 'Avg. analysis time'], ['100%', 'Free to use'], ['3', 'AI-powered tools']].map(([v, l]) => (
-              <div key={l}>
-                <div className="font-mono text-xl font-medium" style={{ color: 'var(--text-primary)', fontFamily: 'DM Mono, monospace' }}>{v}</div>
+              <div key={l} className="min-w-[100px] text-center lg:text-left">
+                <div className="font-mono text-lg sm:text-xl font-medium" style={{ color: 'var(--text-primary)', fontFamily: 'DM Mono, monospace' }}>{v}</div>
                 <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '3px' }}>{l}</div>
               </div>
             ))}
@@ -60,7 +60,7 @@ export default function Hero() {
         </div>
 
         {/* Risk Card */}
-        <div className="rounded-2xl p-6"
+        <div className="rounded-2xl p-4 sm:p-6 w-full max-w-lg mx-auto lg:max-w-none"
           style={{ background: 'var(--bg-page)', border: '1.5px solid var(--border-warm)', boxShadow: '0 4px 24px rgba(28,26,23,0.06)' }}>
           <div className="flex justify-between items-start pb-4 mb-4" style={{ borderBottom: '1px solid var(--border-light)' }}>
             <div className="flex items-center gap-3">

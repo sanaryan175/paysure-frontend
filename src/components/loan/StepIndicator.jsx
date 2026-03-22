@@ -2,7 +2,8 @@ const steps = ['Financial Details', 'Loan Details', 'Upload Document'];
 
 export default function StepIndicator({ currentStep }) {
   return (
-    <div className="flex items-center justify-center gap-0 mb-10">
+    <div className="w-full overflow-x-auto overflow-y-hidden pb-1 mb-8 sm:mb-10 -mx-1 px-1 sm:mx-0 sm:px-0 sm:overflow-visible touch-pan-x">
+      <div className="flex items-start justify-center gap-0 min-w-[min(100%,320px)] sm:min-w-0 mx-auto">
       {steps.map((label, idx) => {
         const step     = idx + 1;
         const done     = step < currentStep;
@@ -26,7 +27,7 @@ export default function StepIndicator({ currentStep }) {
                   : step}
               </div>
               <span
-                className="text-xs font-medium mt-1.5 whitespace-nowrap"
+                className="text-[10px] sm:text-xs font-medium mt-1.5 text-center max-w-[5.5rem] sm:max-w-none sm:whitespace-nowrap leading-tight"
                 style={{ color: active ? 'var(--gold-deep)' : 'var(--text-muted)' }}>
                 {label}
               </span>
@@ -35,13 +36,14 @@ export default function StepIndicator({ currentStep }) {
             {/* Connector line */}
             {idx < steps.length - 1 && (
               <div
-                className="w-16 h-px mx-2 mb-5 transition-all"
+                className="w-8 sm:w-16 h-px mx-1 sm:mx-2 mb-5 sm:mb-5 shrink-0 self-center transition-all"
                 style={{ background: done ? 'var(--gold-mid)' : 'var(--border-light)' }}
               />
             )}
           </div>
         );
       })}
+      </div>
     </div>
   );
 }

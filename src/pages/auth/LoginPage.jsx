@@ -40,7 +40,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4"
+    <div className="min-h-screen flex items-center justify-center px-4 py-8 sm:py-10"
       style={{ background: 'var(--bg-page)' }}>
       <div style={{ width: '100%', maxWidth: '420px' }}>
 
@@ -66,7 +66,7 @@ export default function LoginPage() {
         </div>
 
         {/* Card */}
-        <div className="rounded-2xl p-8"
+        <div className="rounded-2xl p-5 sm:p-8"
           style={{ background: '#fff', border: '1.5px solid var(--border-warm)', boxShadow: '0 4px 24px rgba(28,26,23,0.05)' }}>
           <form onSubmit={handleSubmit}>
 

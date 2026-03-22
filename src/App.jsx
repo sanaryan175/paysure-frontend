@@ -42,7 +42,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <div style={{ minHeight: '100vh', background: 'var(--bg-page)' }}>
+        <div className="min-w-0" style={{ minHeight: '100vh', background: 'var(--bg-page)' }}>
           <Navbar />
           <Routes>
             {/* Public */}

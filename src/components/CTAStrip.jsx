@@ -7,10 +7,9 @@ export default function CTAStrip() {
   return (
     <section
       id="cta"
-      className="relative overflow-hidden text-center"
+      className="relative overflow-hidden text-center px-4 sm:px-8 lg:px-12 py-14 sm:py-16 lg:py-[72px]"
       style={{
         background: 'var(--bg-dark)',
-        padding: '72px 52px',
         borderTop: '1px solid rgba(212,175,55,0.1)',
         borderBottom: '1px solid rgba(212,175,55,0.1)',
       }}>
@@ -20,17 +19,14 @@ export default function CTAStrip() {
         style={{ background: 'linear-gradient(90deg, transparent, var(--gold-mid), transparent)' }}
       />
 
-      <div className="relative" style={{ zIndex: 1 }}>
-        <h2 style={{
+      <div className="relative max-w-3xl mx-auto" style={{ zIndex: 1 }}>
+        <h2 className="text-[clamp(1.5rem,5vw,2.375rem)] leading-tight tracking-tight mb-6 sm:mb-7" style={{
           fontFamily: 'Syne, sans-serif',
-          fontSize: '38px',
           fontWeight: 800,
           color: '#f5f0e8',
           letterSpacing: '-1.2px',
-          marginBottom: '28px',
-          lineHeight: '1.2',
         }}>
-          Still unsure? Analyze your risk<br />
+          Still unsure? Analyze your risk<br className="hidden sm:block" />{' '}
           before making{' '}
           <span style={{ color: 'var(--gold-light)' }}>a decision.</span>
         </h2>

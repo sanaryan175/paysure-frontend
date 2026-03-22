@@ -51,3 +51,4 @@ h1, h2, h3 { font-family: 'Syne', sans-serif; }
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg-page); }
 ::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 2px; }
+

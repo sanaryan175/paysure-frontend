@@ -26,16 +26,16 @@ export default function Pricing() {
 
   return (
     <section id='pricing' style={{ background: 'var(--bg-page)', borderBottom: '1px solid var(--border-light)' }}>
-      <div className="max-w-7xl mx-auto px-12 py-20">
-        <div className="text-center mb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-14 sm:py-20">
+        <div className="text-center mb-10 sm:mb-12">
           <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--gold-mid)', letterSpacing: '1.8px', textTransform: 'uppercase', marginBottom: '10px' }}>Pricing</p>
-          <h2 style={{ fontSize: '34px', letterSpacing: '-1px' }}>Simple, transparent pricing</h2>
+          <h2 className="text-[clamp(1.5rem,4vw,2.125rem)] tracking-tight" style={{ letterSpacing: '-1px', fontFamily: 'Syne, sans-serif', fontWeight: 800 }}>Simple, transparent pricing</h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '15px', marginTop: '10px' }}>100% free to use, forever</p>
         </div>
 
-        <div className="max-w-md mx-auto rounded-2xl p-10 text-center"
+        <div className="max-w-md mx-auto rounded-2xl p-6 sm:p-10 text-center"
           style={{ background: '#fff', border: '2px solid var(--gold-border)', boxShadow: '0 8px 32px rgba(201,162,39,0.08)' }}>
-          <div style={{ fontFamily: 'DM Mono, monospace', fontSize: '56px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '4px' }}>₹0</div>
+          <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 'clamp(2.5rem,12vw,3.5rem)', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '4px' }}>₹0</div>
           <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '28px' }}>Free Forever</div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '13px', marginBottom: '28px', textAlign: 'left' }}>

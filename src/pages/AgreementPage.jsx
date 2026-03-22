@@ -66,16 +66,16 @@ export default function AgreementPage() {
   };
 
   if (result) return (
-    <div className="min-h-screen py-12 px-4" style={{ background: 'var(--bg-page)' }}>
-      <div style={{ maxWidth: "780px", margin: "0 auto" }}>
+    <div className="min-h-screen py-8 sm:py-12 px-3 sm:px-4" style={{ background: 'var(--bg-page)' }}>
+      <div className="w-full max-w-[780px] mx-auto min-w-0">
         <AgreementResult data={result} onReset={handleReset} />
       </div>
     </div>
   );
 
   return (
-    <div className="min-h-screen py-12 px-4" style={{ background: 'var(--bg-page)' }}>
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen py-8 sm:py-12 px-3 sm:px-4" style={{ background: 'var(--bg-page)' }}>
+      <div className="max-w-2xl mx-auto w-full min-w-0">
 
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold mb-4 uppercase tracking-wide"
@@ -83,7 +83,7 @@ export default function AgreementPage() {
             <span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--gold-mid)' }} />
             Agreement Risk Analyzer
           </div>
-          <h1 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '32px', letterSpacing: '-1px', color: 'var(--text-primary)', lineHeight: '1.1', marginBottom: '10px' }}>
+          <h1 className="text-[clamp(1.5rem,5vw,2rem)]" style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, letterSpacing: '-1px', color: 'var(--text-primary)', lineHeight: '1.1', marginBottom: '10px' }}>
             Know what you're signing
           </h1>
           <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: '1.65', maxWidth: '440px', margin: '0 auto' }}>
@@ -92,21 +92,21 @@ export default function AgreementPage() {
         </div>
 
         {/* Step indicator */}
-        <div className="flex items-center justify-center gap-3 mb-8">
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 mb-8 px-1">
           {[{ n: 1, label: 'Your Profile' }, { n: 2, label: 'Upload Document' }].map(({ n, label }, i) => (
-            <div key={n} className="flex items-center gap-3">
+            <div key={n} className="flex items-center gap-2 sm:gap-3">
               <div className="flex items-center gap-2">
                 <div style={{ width: '28px', height: '28px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 700, background: step >= n ? 'var(--gold-mid)' : 'var(--bg-cream)', color: step >= n ? '#fff' : 'var(--text-muted)', border: step >= n ? 'none' : '1.5px solid var(--border-mid)', transition: 'all .2s' }}>
                   {step > n ? '✓' : n}
                 </div>
-                <span style={{ fontSize: '12px', fontWeight: 600, color: step >= n ? 'var(--text-primary)' : 'var(--text-muted)' }}>{label}</span>
+                <span className="text-[11px] sm:text-xs" style={{ fontWeight: 600, color: step >= n ? 'var(--text-primary)' : 'var(--text-muted)' }}>{label}</span>
               </div>
-              {i < 1 && <div style={{ width: '40px', height: '1.5px', background: step > n ? 'var(--gold-mid)' : 'var(--border-mid)', transition: 'all .2s' }} />}
+              {i < 1 && <div className="hidden sm:block w-8 lg:w-10 h-0.5 shrink-0" style={{ background: step > n ? 'var(--gold-mid)' : 'var(--border-mid)', transition: 'all .2s' }} />}
             </div>
           ))}
         </div>
 
-        <div className="rounded-2xl p-8" style={{ background: '#fff', border: '1.5px solid var(--border-warm)', boxShadow: '0 4px 24px rgba(28,26,23,0.05)' }}>
+        <div className="rounded-2xl p-4 sm:p-8" style={{ background: '#fff', border: '1.5px solid var(--border-warm)', boxShadow: '0 4px 24px rgba(28,26,23,0.05)' }}>
 
           {/* STEP 1 */}
           {step === 1 && (
@@ -118,8 +118,8 @@ export default function AgreementPage() {
                 Optional — we'll tell you if this agreement is safe specifically for your income.
               </p>
 
-              <div className="rounded-xl p-4 mb-5 flex items-center justify-between" style={{ background: 'var(--bg-page)', border: '1.5px solid var(--border-warm)' }}>
-                <div>
+              <div className="rounded-xl p-4 mb-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3" style={{ background: 'var(--bg-page)', border: '1.5px solid var(--border-warm)' }}>
+                <div className="min-w-0">
                   <p style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-faint)' }}>
                     {skipProfile ? '🔍 Document-only analysis' : '👤 Personalized analysis'}
                   </p>
@@ -127,14 +127,14 @@ export default function AgreementPage() {
                     {skipProfile ? 'Analyzing document risk only' : 'Fill profile for personalized risk'}
                   </p>
                 </div>
-                <button onClick={() => setSkipProfile(!skipProfile)}
+                <button onClick={() => setSkipProfile(!skipProfile)} className="self-start sm:self-center shrink-0"
                   style={{ padding: '6px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, cursor: 'pointer', fontFamily: 'DM Sans, sans-serif', background: skipProfile ? 'var(--bg-cream)' : 'var(--gold-pale)', border: `1.5px solid ${skipProfile ? 'var(--border-mid)' : 'var(--gold-border)'}`, color: skipProfile ? 'var(--text-muted)' : 'var(--gold-deep)' }}>
                   {skipProfile ? 'Add Profile' : 'Skip'}
                 </button>
               </div>
 
               {!skipProfile && (
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {[
                     { field: 'monthlyIncome',  label: 'Monthly Income',   placeholder: '50000' },
                     { field: 'monthlyExpenses', label: 'Monthly Expenses', placeholder: '20000' },
@@ -146,7 +146,7 @@ export default function AgreementPage() {
                       <Input type="number" prefix="₹" placeholder={placeholder} value={profile[field]} onChange={e => setProfile(p => ({ ...p, [field]: e.target.value }))} />
                     </div>
                   ))}
-                  <div className="col-span-2">
+                  <div className="sm:col-span-2">
                     <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '6px' }}>Job Type</label>
                     <select value={profile.jobType} onChange={e => setProfile(p => ({ ...p, jobType: e.target.value }))}
                       style={{ width: '100%', height: '42px', border: '1.5px solid var(--border-mid)', borderRadius: '10px', padding: '0 12px', fontSize: '14px', color: 'var(--text-primary)', fontFamily: 'DM Sans, sans-serif', outline: 'none', background: '#faf8f4', cursor: 'pointer' }}>
@@ -161,8 +161,8 @@ export default function AgreementPage() {
                 </div>
               )}
 
-              <div className="flex justify-end mt-6 pt-5" style={{ borderTop: '1px solid var(--border-light)' }}>
-                <button onClick={() => setStep(2)}
+              <div className="flex justify-stretch sm:justify-end mt-6 pt-5" style={{ borderTop: '1px solid var(--border-light)' }}>
+                <button onClick={() => setStep(2)} className="w-full sm:w-auto"
                   style={{ background: 'linear-gradient(135deg, var(--gold-mid), var(--gold-light))', color: '#fff', border: 'none', borderRadius: '11px', padding: '11px 28px', fontSize: '14px', fontWeight: 700, cursor: 'pointer', fontFamily: 'DM Sans, sans-serif' }}
                   onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 6px 18px rgba(201,162,39,0.28)'; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}>
@@ -187,7 +187,7 @@ export default function AgreementPage() {
                 <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: '10px' }}>
                   Accepted Document Types
                 </p>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 min-[400px]:grid-cols-2 lg:grid-cols-3 gap-2">
                   {[
                     ['📄', 'Loan Agreement'],
                     ['📋', 'Sanction Letter'],
@@ -206,7 +206,7 @@ export default function AgreementPage() {
               </div>
 
               {/* Trust indicators */}
-              <div className="flex gap-5 mb-5 pb-5" style={{ borderBottom: '1px solid var(--border-light)' }}>
+              <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-5 mb-5 pb-5" style={{ borderBottom: '1px solid var(--border-light)' }}>
                 {[['🔒', 'Encrypted upload'], ['🗑️', 'Auto-deleted after analysis'], ['👁️', 'Never stored or shared']].map(([icon, text]) => (
                   <div key={text} className="flex items-center gap-1.5">
                     <span style={{ fontSize: '13px' }}>{icon}</span>
@@ -218,7 +218,8 @@ export default function AgreementPage() {
               <div onClick={() => inputRef.current.click()}
                 onDrop={e => { e.preventDefault(); handleFile(e.dataTransfer.files[0]); }}
                 onDragOver={e => e.preventDefault()}
-                style={{ padding: '40px 24px', borderRadius: '16px', textAlign: 'center', cursor: 'pointer', border: `2px dashed ${file ? 'var(--gold-mid)' : 'var(--border-mid)'}`, background: file ? 'var(--gold-pale)' : 'var(--bg-page)', marginBottom: '12px', transition: 'all .15s' }}>
+                className="px-4 py-8 sm:px-6 sm:py-10"
+                style={{ borderRadius: '16px', textAlign: 'center', cursor: 'pointer', border: `2px dashed ${file ? 'var(--gold-mid)' : 'var(--border-mid)'}`, background: file ? 'var(--gold-pale)' : 'var(--bg-page)', marginBottom: '12px', transition: 'all .15s' }}>
                 {file ? (
                   <><div style={{ fontSize: '32px', marginBottom: '8px' }}>📄</div>
                     <p style={{ fontSize: '14px', fontWeight: 700, color: 'var(--gold-deep)', marginBottom: '4px' }}>{file.name}</p>
@@ -246,14 +247,14 @@ export default function AgreementPage() {
                 </div>
               )}
 
-              <div className="flex justify-between items-center mt-4 pt-5" style={{ borderTop: '1px solid var(--border-light)' }}>
-                <button onClick={() => setStep(1)}
+              <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3 mt-4 pt-5" style={{ borderTop: '1px solid var(--border-light)' }}>
+                <button onClick={() => setStep(1)} className="w-full sm:w-auto"
                   style={{ background: 'transparent', border: '1.5px solid var(--border-mid)', color: 'var(--text-faint)', borderRadius: '11px', padding: '10px 20px', fontSize: '14px', fontWeight: 500, cursor: 'pointer', fontFamily: 'DM Sans, sans-serif' }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--gold-mid)'; e.currentTarget.style.color = 'var(--gold-deep)'; }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border-mid)'; e.currentTarget.style.color = 'var(--text-faint)'; }}>
                   ← Back
                 </button>
-                <button onClick={handleSubmit} disabled={loading || !file}
+                <button onClick={handleSubmit} disabled={loading || !file} className="w-full sm:w-auto justify-center"
                   style={{ background: (!file || loading) ? '#e0dbd0' : 'linear-gradient(135deg, var(--gold-mid), var(--gold-light))', color: '#fff', border: 'none', borderRadius: '11px', padding: '11px 28px', fontSize: '14px', fontWeight: 700, cursor: (!file || loading) ? 'not-allowed' : 'pointer', fontFamily: 'DM Sans, sans-serif', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
                   {loading ? (
                     <><svg style={{ animation: 'spin 1s linear infinite' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" strokeOpacity="0.3"/><path d="M21 12a9 9 0 00-9-9"/></svg>Analyzing...</>

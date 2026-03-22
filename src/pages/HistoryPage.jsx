@@ -37,20 +37,21 @@ function LoanCard({ item }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="rounded-2xl mb-3 overflow-hidden" style={{ background: '#fff', border: '1.5px solid var(--border-warm)' }}>
-      <div className="flex items-center justify-between p-4 cursor-pointer" onClick={() => setOpen(!open)}>
-        <div>
-          <div className="flex items-center gap-3 mb-1">
+      <div className="flex items-center justify-between gap-3 p-4 cursor-pointer" onClick={() => setOpen(!open)}>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-1">
             <VerdictBadge verdict={item.overallVerdict} />
             <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
               {new Date(item.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
             </span>
           </div>
-          <p style={{ fontSize: '14px', color: 'var(--text-faint)', fontWeight: 500 }}>
+          <p className="break-words" style={{ fontSize: '14px', color: 'var(--text-faint)', fontWeight: 500 }}>
             ₹{Number(item.loanAmount)?.toLocaleString('en-IN') || '—'} loan · {item.interestRate}% · {item.tenureMonths} months
           </p>
         </div>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2"
-          style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .2s', flexShrink: 0 }}>
+          className="shrink-0"
+          style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .2s' }}>
           <polyline points="6 9 12 15 18 9"/>
         </svg>
       </div>
@@ -62,7 +63,7 @@ function LoanCard({ item }) {
               "{item.finalDecisionStatement}"
             </p>
           )}
-          <div className="grid grid-cols-3 gap-3 mb-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
             {[
               ['Repayment Capacity', item.capacityScore],
               ['Financial Stress',   item.financialStressLevel],
@@ -100,21 +101,22 @@ function ScamCard({ item }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="rounded-2xl mb-3 overflow-hidden" style={{ background: '#fff', border: '1.5px solid var(--border-warm)' }}>
-      <div className="flex items-center justify-between p-4 cursor-pointer" onClick={() => setOpen(!open)}>
-        <div>
-          <div className="flex items-center gap-3 mb-1">
+      <div className="flex items-center justify-between gap-3 p-4 cursor-pointer" onClick={() => setOpen(!open)}>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-1">
             <VerdictBadge verdict={item.verdict} />
             <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
               {new Date(item.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
             </span>
           </div>
-          <p style={{ fontSize: '14px', color: 'var(--text-faint)', fontWeight: 500 }}>
+          <p className="break-words" style={{ fontSize: '14px', color: 'var(--text-faint)', fontWeight: 500 }}>
             {item.scamType || 'Unknown type'}
             {item.fileCount > 0 && ` · ${item.fileCount} file${item.fileCount > 1 ? 's' : ''} uploaded`}
           </p>
         </div>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2"
-          style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .2s', flexShrink: 0 }}>
+          className="shrink-0"
+          style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .2s' }}>
           <polyline points="6 9 12 15 18 9"/>
         </svg>
       </div>
@@ -158,20 +160,21 @@ function AgreementCard({ item }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="rounded-2xl mb-3 overflow-hidden" style={{ background: '#fff', border: '1.5px solid var(--border-warm)' }}>
-      <div className="flex items-center justify-between p-4 cursor-pointer" onClick={() => setOpen(!open)}>
-        <div>
-          <div className="flex items-center gap-3 mb-1">
+      <div className="flex items-center justify-between gap-3 p-4 cursor-pointer" onClick={() => setOpen(!open)}>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-1">
             <VerdictBadge verdict={item.verdict} />
             <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
               {new Date(item.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
             </span>
           </div>
-          <p style={{ fontSize: '14px', color: 'var(--text-faint)', fontWeight: 500 }}>
+          <p className="break-words" style={{ fontSize: '14px', color: 'var(--text-faint)', fontWeight: 500 }}>
             {item.documentType || 'Document'} · {item.originalFileName || 'No file'}
           </p>
         </div>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2"
-          style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .2s', flexShrink: 0 }}>
+          className="shrink-0"
+          style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .2s' }}>
           <polyline points="6 9 12 15 18 9"/>
         </svg>
       </div>
@@ -183,7 +186,7 @@ function AgreementCard({ item }) {
               "{item.verdictStatement}"
             </p>
           )}
-          <div className="grid grid-cols-2 gap-3 mb-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
             {item.interestRate && <div style={{ background: 'var(--bg-page)', borderRadius: '10px', padding: '10px 12px', border: '1px solid var(--border-light)' }}>
               <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 700, marginBottom: '4px', textTransform: 'uppercase' }}>Interest Rate</div>
               <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-faint)' }}>{item.interestRate}</div>
@@ -243,8 +246,8 @@ export default function HistoryPage() {
   const items = data[activeTab] || [];
 
   return (
-    <div className="min-h-screen py-12 px-4" style={{ background: 'var(--bg-page)' }}>
-      <div style={{ maxWidth: '700px', margin: '0 auto' }}>
+    <div className="min-h-screen py-8 sm:py-12 px-3 sm:px-4" style={{ background: 'var(--bg-page)' }}>
+      <div className="w-full max-w-[700px] mx-auto min-w-0">
 
         {/* Header */}
         <div className="mb-8">
@@ -267,11 +270,11 @@ export default function HistoryPage() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-6">
+        <div className="flex flex-col sm:flex-row gap-2 mb-6">
           {TABS.map(tab => (
             <button key={tab.id} onClick={() => setActiveTab(tab.id)}
               style={{
-                flex: 1, padding: '10px 8px', borderRadius: '10px', fontSize: '13px',
+                flex: 1, padding: '10px 8px', borderRadius: '10px', fontSize: 'clamp(12px,3.5vw,13px)',
                 fontWeight: 600, cursor: 'pointer', fontFamily: 'DM Sans, sans-serif',
                 border: '1.5px solid',
                 borderColor: activeTab === tab.id ? 'var(--gold-mid)' : 'var(--border-mid)',

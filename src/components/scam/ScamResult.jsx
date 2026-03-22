@@ -10,20 +10,20 @@ const verdictConfig = {
     const isScam = data.verdict === 'Likely Scam' || data.verdict === 'Confirmed Scam';
   
     return (
-      <div style={{ maxWidth: '780px', margin: '0 auto' }}>
+      <div className="w-full max-w-[780px] mx-auto min-w-0 px-1 sm:px-0">
   
         {/* ── 1. VERDICT ── */}
-        <div className="rounded-2xl p-6 mb-5" style={{ background: vc.bg, border: `2px solid ${vc.border}` }}>
-          <div className="flex items-start justify-between mb-4">
-            <div>
+        <div className="rounded-2xl p-4 sm:p-6 mb-5" style={{ background: vc.bg, border: `2px solid ${vc.border}` }}>
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
+            <div className="min-w-0 flex-1">
               <div style={{ fontSize: '12px', fontWeight: 700, color: vc.color, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: '6px' }}>
                 Scam Analysis Result
               </div>
-              <div className="flex items-center gap-3 mb-3">
-                <span style={{ fontFamily: 'Syne, sans-serif', fontSize: '28px', fontWeight: 800, color: vc.color }}>
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-3">
+                <span className="text-[clamp(1.25rem,5vw,1.75rem)] break-words" style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, color: vc.color }}>
                   {data.verdict}
                 </span>
-                <span style={{ fontSize: '12px', fontWeight: 700, padding: '3px 12px', borderRadius: '99px', background: '#fff', border: `1px solid ${vc.border}`, color: vc.color }}>
+                <span className="shrink-0" style={{ fontSize: '12px', fontWeight: 700, padding: '3px 12px', borderRadius: '99px', background: '#fff', border: `1px solid ${vc.border}`, color: vc.color }}>
                   {data.confidence}% confident
                 </span>
               </div>
@@ -33,7 +33,7 @@ const verdictConfig = {
                 </span>
               )}
             </div>
-            <span style={{ fontSize: '40px' }}>{vc.emoji}</span>
+            <span className="text-3xl sm:text-4xl shrink-0 self-start sm:self-auto" aria-hidden>{vc.emoji}</span>
           </div>
   
           {/* Verdict statement */}

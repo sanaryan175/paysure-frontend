@@ -6,9 +6,9 @@ const links = {
 
 export default function Footer() {
   return (
-    <footer style={{ background: 'var(--bg-darker)', padding: '56px 52px 28px' }}>
+    <footer className="px-4 sm:px-8 lg:px-12 pt-12 sm:pt-14 pb-7" style={{ background: 'var(--bg-darker)' }}>
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-10 sm:mb-12">
 
           {/* Brand */}
           <div>
@@ -21,7 +21,7 @@ export default function Footer() {
               </div>
               <span style={{ fontFamily: 'Syne, sans-serif', fontSize: '17px', fontWeight: 800, color: '#e0bb42' }}>PaySure</span>
             </div>
-            <p style={{ fontSize: '13.5px', color: '#a09880', lineHeight: '1.75', maxWidth: '200px' }}>
+            <p className="max-w-xs sm:max-w-[200px]" style={{ fontSize: '13.5px', color: '#a09880', lineHeight: '1.75' }}>
               Know the risk before you commit money.
             </p>
           </div>

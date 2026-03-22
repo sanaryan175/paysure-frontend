@@ -12,7 +12,7 @@ export default function Step1Financial({ data, errors, onChange }) {
         This helps us evaluate your repayment capacity accurately.
       </p>
 
-      <div className="grid grid-cols-2 gap-x-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-0 sm:gap-x-5 gap-y-5">
         <FormField label="Monthly Income" hint="after tax" error={errors.monthlyIncome}>
           <Input
             prefix="₹"
@@ -53,17 +53,19 @@ export default function Step1Financial({ data, errors, onChange }) {
           />
         </FormField>
 
-        <FormField label="Job Type" error={errors.jobType} >
-          <Select
-            value={data.jobType}
-            onChange={e => onChange('jobType', e.target.value)}>
-            <option value="">Select job type</option>
-            <option value="salaried">Salaried</option>
-            <option value="self-employed">Self-Employed</option>
-            <option value="freelance">Freelance</option>
-            <option value="other">Other</option>
-          </Select>
-        </FormField>
+        <div className="sm:col-span-2">
+          <FormField label="Job Type" error={errors.jobType}>
+            <Select
+              value={data.jobType}
+              onChange={e => onChange('jobType', e.target.value)}>
+              <option value="">Select job type</option>
+              <option value="salaried">Salaried</option>
+              <option value="self-employed">Self-Employed</option>
+              <option value="freelance">Freelance</option>
+              <option value="other">Other</option>
+            </Select>
+          </FormField>
+        </div>
       </div>
     </div>
   );

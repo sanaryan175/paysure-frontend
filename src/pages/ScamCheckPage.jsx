@@ -63,8 +63,8 @@ export default function ScamCheckPage() {
   const hasInput = text.trim() || url.trim() || files.length > 0;
 
   if (result) return (
-    <div className="min-h-screen py-12 px-4" style={{ background: 'var(--bg-page)' }}>
-      <div style={{ maxWidth: '780px', margin: '0 auto' }}>
+    <div className="min-h-screen py-8 sm:py-12 px-3 sm:px-4" style={{ background: 'var(--bg-page)' }}>
+      <div className="w-full max-w-[780px] mx-auto min-w-0">
         <ScamResult data={result} onReset={handleReset} />
       </div>
     </div>
@@ -81,7 +81,7 @@ export default function ScamCheckPage() {
             <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#b83232' }} />
             Scam / Offer Analyzer
           </div>
-          <h1 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '32px', letterSpacing: '-1px', color: 'var(--text-primary)', lineHeight: '1.1', marginBottom: '10px' }}>
+          <h1 className="text-[clamp(1.5rem,5vw,2rem)]" style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, letterSpacing: '-1px', color: 'var(--text-primary)', lineHeight: '1.1', marginBottom: '10px' }}>
             Is this a scam?
           </h1>
           <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: '1.65', maxWidth: '420px', margin: '0 auto' }}>
@@ -89,7 +89,7 @@ export default function ScamCheckPage() {
           </p>
         </div>
 
-        <div className="rounded-2xl p-8" style={{ background: '#fff', border: '1.5px solid var(--border-warm)', boxShadow: '0 4px 24px rgba(28,26,23,0.05)' }}>
+        <div className="rounded-2xl p-4 sm:p-8" style={{ background: '#fff', border: '1.5px solid var(--border-warm)', boxShadow: '0 4px 24px rgba(28,26,23,0.05)' }}>
 
           {/* ── 1. TEXT INPUT ── */}
           <div style={{ marginBottom: '20px' }}>

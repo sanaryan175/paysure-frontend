@@ -100,8 +100,14 @@ export default function Navbar() {
   const navigate  = useNavigate();
   const location  = useLocation();
   const { user, logout, isAuthenticated } = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   const handleNavClick = (id) => {
+    setMenuOpen(false);
     if (location.pathname === '/') {
       const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -119,25 +125,25 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 bg-white"
       style={{ borderBottom: '1px solid var(--border-light)', boxShadow: '0 1px 8px rgba(28,26,23,0.04)' }}>
-      <div className="max-w-7xl mx-auto px-12 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 h-14 sm:h-16 flex items-center justify-between gap-2">
 
         {/* Logo */}
-        <div onClick={() => navigate('/')} className="flex items-center gap-3 cursor-pointer"
-          style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '19px', color: 'var(--text-primary)' }}>
-          <div className="w-9 h-9 rounded-xl flex items-center justify-center"
+        <div onClick={() => { setMenuOpen(false); navigate('/'); }} className="flex items-center gap-2 sm:gap-3 cursor-pointer min-w-0 shrink"
+          style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 'clamp(17px, 4vw, 19px)', color: 'var(--text-primary)' }}>
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center shrink-0"
             style={{ background: 'linear-gradient(135deg, var(--gold-mid), var(--gold-light))' }}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+            <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px]" viewBox="0 0 24 24" fill="white">
               <path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.35C16.5 22.15 20 17.25 20 12V6L12 2z" />
             </svg>
           </div>
-          PaySure
+          <span className="truncate">PaySure</span>
         </div>
 
-        {/* Nav links */}
-        <div className="hidden md:flex items-center">
+        {/* Nav links — desktop */}
+        <div className="hidden md:flex items-center flex-1 justify-center min-w-0">
           {navLinks.map(({ label, id }) => (
             <button key={id} onClick={() => handleNavClick(id)}
-              style={{ color: 'var(--text-secondary)', fontFamily: 'DM Sans, sans-serif', background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: 500, padding: '8px 16px' }}
+              style={{ color: 'var(--text-secondary)', fontFamily: 'DM Sans, sans-serif', background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: 500, padding: '8px 12px', whiteSpace: 'nowrap' }}
               onMouseEnter={e => e.currentTarget.style.color = 'var(--text-primary)'}
               onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}>
               {label}
@@ -145,16 +151,16 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Auth actions */}
-        <div className="flex items-center gap-2.5">
+        {/* Auth + menu toggle */}
+        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
           {isAuthenticated ? (
             <DropdownMenu
               user={user}
-              onHistory={() => navigate('/history')}
-              onLogout={handleLogout}
+              onHistory={() => { setMenuOpen(false); navigate('/history'); }}
+              onLogout={() => { setMenuOpen(false); handleLogout(); }}
             />
           ) : (
-            <>
+            <div className="hidden sm:flex items-center gap-2.5">
               <button onClick={() => navigate('/login')}
                 style={{ background: 'transparent', border: '1.5px solid var(--border-mid)', color: 'var(--text-muted)', borderRadius: '10px', padding: '8px 18px', fontSize: '14px', fontWeight: 500, cursor: 'pointer', fontFamily: 'DM Sans, sans-serif' }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--gold-mid)'; e.currentTarget.style.color = 'var(--gold-deep)'; }}
@@ -167,10 +173,64 @@ export default function Navbar() {
                 onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}>
                 Sign Up
               </button>
-            </>
+            </div>
           )}
+
+          <button
+            type="button"
+            className="md:hidden p-2 rounded-lg -mr-1"
+            style={{ border: '1px solid var(--border-light)', background: 'var(--bg-page)' }}
+            aria-expanded={menuOpen}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            onClick={() => setMenuOpen((o) => !o)}>
+            {menuOpen ? (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" strokeWidth="2">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            ) : (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" strokeWidth="2">
+                <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+              </svg>
+            )}
+          </button>
         </div>
       </div>
+
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div className="md:hidden border-t border-[var(--border-light)] bg-white px-4 py-3 shadow-lg max-h-[min(70vh,calc(100dvh-3.5rem))] overflow-y-auto">
+          <div className="flex flex-col gap-0.5">
+            {navLinks.map(({ label, id }) => (
+              <button
+                key={id}
+                type="button"
+                onClick={() => handleNavClick(id)}
+                className="text-left py-3 px-2 rounded-lg text-[15px] font-medium"
+                style={{ color: 'var(--text-secondary)', fontFamily: 'DM Sans, sans-serif', background: 'transparent', border: 'none', cursor: 'pointer' }}>
+                {label}
+              </button>
+            ))}
+          </div>
+          {!isAuthenticated && (
+            <div className="flex flex-col gap-2 mt-3 pt-3" style={{ borderTop: '1px solid var(--border-light)' }}>
+              <button
+                type="button"
+                onClick={() => { setMenuOpen(false); navigate('/login'); }}
+                className="w-full py-3 rounded-[10px] text-[14px] font-medium"
+                style={{ border: '1.5px solid var(--border-mid)', color: 'var(--text-muted)', background: 'transparent', fontFamily: 'DM Sans, sans-serif', cursor: 'pointer' }}>
+                Login
+              </button>
+              <button
+                type="button"
+                onClick={() => { setMenuOpen(false); navigate('/register'); }}
+                className="w-full py-3 rounded-[10px] text-[14px] font-bold text-white"
+                style={{ background: 'linear-gradient(135deg, var(--gold-mid), var(--gold-light))', border: 'none', fontFamily: 'DM Sans, sans-serif', cursor: 'pointer' }}>
+                Sign Up
+              </button>
+            </div>
+          )}
+        </div>
+      )}
     </nav>
   );
 }

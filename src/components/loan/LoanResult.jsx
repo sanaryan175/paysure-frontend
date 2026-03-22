@@ -49,12 +49,12 @@ export default function LoanResult({ data, onReset }) {
   const dispMeaning = data.disposableIncome > 0 ? 'Available after all costs' : 'You will be in deficit';
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="max-w-3xl mx-auto px-1 sm:px-0">
 
       {/* ── 1. FINAL DECISION — action-oriented ── */}
-      <div className="rounded-2xl p-6 mb-5"
+      <div className="rounded-2xl p-4 sm:p-6 mb-5"
         style={{ background: vc.bg, border: `1.5px solid ${vc.border}` }}>
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
           <div style={{ fontSize: '10px', fontWeight: 700, color: vc.color, letterSpacing: '1.5px', textTransform: 'uppercase' }}>
             Final Decision
           </div>
@@ -82,13 +82,13 @@ export default function LoanResult({ data, onReset }) {
       </div>
 
       {/* ── 2. FINANCIAL CAPACITY ── */}
-      <div className="rounded-2xl p-5 mb-5" style={{ background: '#fff', border: '1.5px solid var(--border-warm)' }}>
+      <div className="rounded-2xl p-4 sm:p-5 mb-5" style={{ background: '#fff', border: '1.5px solid var(--border-warm)' }}>
         <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--gold-mid)', letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: '14px' }}>
           Your Financial Capacity
         </div>
 
         {/* Score badges */}
-        <div className="grid grid-cols-3 gap-3 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
           {[
             ['Repayment Capacity', data.capacityScore],
             ['Financial Stress',   data.financialStressLevel],
@@ -102,7 +102,7 @@ export default function LoanResult({ data, onReset }) {
         </div>
 
         {/* Metrics with meaning */}
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <MetricCard
             label="Monthly EMI"
             value={`₹${data.calculatedEMI?.toLocaleString('en-IN')}`}
@@ -129,8 +129,8 @@ export default function LoanResult({ data, onReset }) {
 
       {/* ── 3. LOAN RISK ANALYSIS ── */}
       {data.documentUploaded ? (
-        <div className="rounded-2xl p-5 mb-5" style={{ background: '#fff', border: '1.5px solid var(--border-warm)' }}>
-          <div className="flex items-center justify-between mb-4">
+        <div className="rounded-2xl p-4 sm:p-5 mb-5" style={{ background: '#fff', border: '1.5px solid var(--border-warm)' }}>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
             <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--gold-mid)', letterSpacing: '1.5px', textTransform: 'uppercase' }}>
               Loan Risk Analysis
             </div>
@@ -138,7 +138,7 @@ export default function LoanResult({ data, onReset }) {
           </div>
 
           {/* Extracted terms */}
-          <div className="grid grid-cols-3 gap-3 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
             {data.interestRateFound && (
               <MetricCard label="Interest Rate"      value={data.interestRateFound} />
             )}
@@ -231,8 +231,8 @@ export default function LoanResult({ data, onReset }) {
       )}
 
       {/* ── 5. KEY REASONS + SMART SUGGESTIONS ── */}
-      <div className="grid grid-cols-2 gap-4 mb-5">
-        <div className="rounded-2xl p-5" style={{ background: '#f5fdf7', border: '1.5px solid #a7e0be' }}>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+        <div className="rounded-2xl p-4 sm:p-5" style={{ background: '#f5fdf7', border: '1.5px solid #a7e0be' }}>
           <div style={{ fontSize: '13px', fontWeight: 700, color: '#1a7a3c', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '6px' }}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
@@ -247,7 +247,7 @@ export default function LoanResult({ data, onReset }) {
           ))}
         </div>
 
-        <div className="rounded-2xl p-5" style={{ background: '#fff8f5', border: '1.5px solid #f5c0b0' }}>
+        <div className="rounded-2xl p-4 sm:p-5" style={{ background: '#fff8f5', border: '1.5px solid #f5c0b0' }}>
           <div style={{ fontSize: '13px', fontWeight: 700, color: '#b83232', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '6px' }}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
@@ -263,7 +263,7 @@ export default function LoanResult({ data, onReset }) {
       </div>
 
       {/* ── 6. Summary numbers ── */}
-      <div className="grid grid-cols-2 gap-3 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
         <MetricCard label="Total Repayment"   value={`₹${data.totalRepayment?.toLocaleString('en-IN')}`}
           meaning={`₹${data.totalInterest?.toLocaleString('en-IN')} is interest cost`} />
         <MetricCard label="Total Interest"    value={`₹${data.totalInterest?.toLocaleString('en-IN')}`}

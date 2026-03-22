@@ -81,21 +81,21 @@ export default function FeatureCards() {
   const navigate = useNavigate();
   return (
     <section id='features' style={{ background: 'var(--bg-page)', borderBottom: '1px solid var(--border-light)' }}>
-      <div className="max-w-7xl mx-auto px-12 py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-14 sm:py-20">
 
         {/* Section header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-10 sm:mb-12">
           <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--gold-mid)', letterSpacing: '1.8px', textTransform: 'uppercase', marginBottom: '10px' }}>
             What PaySure Does
           </p>
-          <h2 style={{ fontSize: '34px', letterSpacing: '-1px' }}>Three tools. One platform.</h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '15px', marginTop: '10px', lineHeight: '1.65' }}>
+          <h2 className="text-[clamp(1.5rem,4vw,2.125rem)] tracking-tight" style={{ letterSpacing: '-1px', fontFamily: 'Syne, sans-serif', fontWeight: 800 }}>Three tools. One platform.</h2>
+          <p className="max-w-2xl mx-auto px-1" style={{ color: 'var(--text-secondary)', fontSize: '15px', marginTop: '10px', lineHeight: '1.65' }}>
             Everything you need to make safer financial decisions — before you sign, transfer, or borrow.
           </p>
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {features.map(f => (
             <div key={f.id}
               className="rounded-2xl relative overflow-hidden"
@@ -104,7 +104,7 @@ export default function FeatureCards() {
                 border: '1.5px solid var(--border-warm)',
                 cursor: 'pointer',
                 transition: 'all .22s',
-                padding: '32px 28px 28px',
+                padding: 'clamp(20px,4vw,32px) clamp(18px,3vw,28px) clamp(18px,3vw,28px)',
                 display: 'flex',
                 flexDirection: 'column',
               }}

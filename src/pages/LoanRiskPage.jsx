@@ -125,8 +125,8 @@ export default function LoanRiskPage() {
   };
 
   return (
-    <div className="min-h-screen py-12 px-4" style={{ background: 'var(--bg-page)' }}>
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen py-8 sm:py-12 px-3 sm:px-4" style={{ background: 'var(--bg-page)' }}>
+      <div className="max-w-2xl mx-auto w-full min-w-0">
 
         {!result && (
           <div className="text-center mb-10">
@@ -135,7 +135,7 @@ export default function LoanRiskPage() {
               <span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--gold-mid)' }} />
               Loan Risk Analyzer
             </div>
-            <h1 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '32px', letterSpacing: '-1px', color: 'var(--text-primary)', lineHeight: '1.1' }}>
+            <h1 className="text-[clamp(1.5rem,5vw,2rem)]" style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, letterSpacing: '-1px', color: 'var(--text-primary)', lineHeight: '1.1' }}>
               Loan Affordability &amp;<br />Risk Analyzer
             </h1>
             <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginTop: '10px' }}>
@@ -168,7 +168,7 @@ export default function LoanRiskPage() {
             <LoanResult data={result} onReset={handleReset} />
           </>
         ) : (
-          <div className="rounded-2xl p-8"
+          <div className="rounded-2xl p-4 sm:p-8"
             style={{ background: '#fff', border: '1.5px solid var(--border-warm)', boxShadow: '0 4px 24px rgba(28,26,23,0.05)' }}>
 
             <StepIndicator currentStep={step} />
@@ -206,37 +206,39 @@ export default function LoanRiskPage() {
             )}
 
             {/* Navigation */}
-            <div className="flex items-center justify-between mt-8 pt-6"
+            <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3 mt-8 pt-6"
               style={{ borderTop: '1px solid var(--border-light)' }}>
 
               {step > 1 ? (
-                <button onClick={handleBack}
+                <button onClick={handleBack} className="w-full sm:w-auto"
                   style={{ background: 'transparent', border: '1.5px solid var(--border-mid)', color: 'var(--text-faint)', borderRadius: '11px', padding: '10px 20px', fontSize: '14px', fontWeight: 500, cursor: 'pointer', fontFamily: 'DM Sans, sans-serif', transition: 'all .15s' }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--gold-mid)'; e.currentTarget.style.color = 'var(--gold-deep)'; }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border-mid)'; e.currentTarget.style.color = 'var(--text-faint)'; }}>
                   ← Back
                 </button>
-              ) : <div />}
+              ) : <div className="hidden sm:block" />}
 
               {step < 3 ? (
-                <button onClick={handleNext}
+                <button onClick={handleNext} className="w-full sm:w-auto"
                   style={{ background: 'linear-gradient(135deg, var(--gold-mid), var(--gold-light))', color: '#fff', border: 'none', borderRadius: '11px', padding: '10px 28px', fontSize: '14px', fontWeight: 700, cursor: 'pointer', fontFamily: 'DM Sans, sans-serif', transition: 'all .15s' }}
                   onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 6px 18px rgba(201,162,39,0.28)'; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}>
                   Continue →
                 </button>
               ) : (
-                <div className="flex items-center gap-3">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
                   {/* Skip document option */}
                   {!file && (
                     <button onClick={handleSubmit}
                       disabled={loading}
+                      className="w-full sm:w-auto"
                       style={{ background: 'transparent', border: '1.5px solid var(--border-mid)', color: 'var(--text-faint)', borderRadius: '11px', padding: '10px 18px', fontSize: '13px', fontWeight: 500, cursor: loading ? 'not-allowed' : 'pointer', fontFamily: 'DM Sans, sans-serif' }}>
                       Skip & Analyze →
                     </button>
                   )}
                   <button onClick={handleSubmit}
                     disabled={loading}
+                    className="w-full sm:w-auto justify-center"
                     style={{
                       background: loading ? '#e0dbd0' : 'linear-gradient(135deg, var(--gold-mid), var(--gold-light))',
                       color: '#fff', border: 'none', borderRadius: '11px', padding: '10px 28px',

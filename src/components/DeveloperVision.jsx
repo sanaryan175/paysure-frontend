@@ -3,9 +3,9 @@ export default function DeveloperVision() {
     <section
       id="vision"
       style={{ background: 'var(--bg-white)', borderBottom: '1px solid var(--border-light)' }}>
-      <div className="max-w-3xl mx-auto px-8 py-20">
+      <div className="max-w-3xl mx-auto px-4 sm:px-8 py-14 sm:py-20">
         <h2
-          className="text-3xl font-bold text-center mb-12"
+          className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12"
           style={{ letterSpacing: '-0.8px', color: 'var(--text-primary)', fontFamily: 'Syne, sans-serif' }}>
           Developer's Vision
         </h2>

@@ -23,16 +23,16 @@ export default function HowItWorks() {
 
   return (
     <section id='how-it-works' style={{ background: 'var(--bg-white)', borderBottom: '1px solid var(--border-light)' }}>
-      <div className="max-w-7xl mx-auto px-12 py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-14 sm:py-20">
 
-        <div className="text-center mb-14">
+        <div className="text-center mb-10 sm:mb-14">
           <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--gold-mid)', letterSpacing: '1.8px', textTransform: 'uppercase', marginBottom: '10px' }}>Process</p>
-          <h2 style={{ fontSize: '34px', letterSpacing: '-1px' }}>Simple, guided risk analysis</h2>
+          <h2 className="text-[clamp(1.5rem,4vw,2.125rem)] tracking-tight" style={{ letterSpacing: '-1px', fontFamily: 'Syne, sans-serif', fontWeight: 800 }}>Simple, guided risk analysis</h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '15px', marginTop: '10px' }}>Get clear insights in three easy steps</p>
         </div>
 
         {/* Steps */}
-        <div className="grid grid-cols-3 gap-10 mb-14">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-10 mb-10 sm:mb-14">
           {steps.map(s => (
             <div key={s.num}>
               <div className="w-13 h-13 rounded-2xl flex items-center justify-center mb-5"
@@ -47,7 +47,7 @@ export default function HowItWorks() {
         </div>
 
         {/* Live Calculator */}
-        <div className="rounded-2xl p-7 max-w-2xl mx-auto"
+        <div className="rounded-2xl p-4 sm:p-7 max-w-2xl mx-auto"
           style={{ background: 'var(--bg-page)', border: '1.5px solid var(--border-warm)' }}>
           <div className="flex items-center gap-2 mb-6">
             <span className="w-2 h-2 rounded-full" style={{ background: 'var(--gold-mid)' }} />
@@ -61,8 +61,8 @@ export default function HowItWorks() {
             ['Monthly EMI (₹)', emi, setEmi],
             ['Tenure (months)', tenure, setTenure],
           ].map(([label, val, setter]) => (
-            <div key={label} className="flex items-center gap-4 mb-3.5">
-              <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-faint)', width: '150px', flexShrink: 0 }}>{label}</span>
+            <div key={label} className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-3.5">
+              <span className="sm:w-[150px] sm:flex-shrink-0" style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-faint)' }}>{label}</span>
               <input
                 type="number"
                 value={val}
@@ -74,14 +74,14 @@ export default function HowItWorks() {
             </div>
           ))}
 
-          <div className="rounded-2xl p-5 flex justify-between items-center mt-2 transition-all"
+          <div className="rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 sm:gap-0 mt-2 transition-all"
             style={{ background: risk.bg, border: `1.5px solid ${risk.border}` }}>
             <div>
               <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-faint)', letterSpacing: '0.3px', textTransform: 'uppercase' }}>EMI-to-Income Ratio</div>
               <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '3px' }}>Total repayment: ₹{total}</div>
             </div>
-            <div style={{ textAlign: 'right' }}>
-              <div style={{ fontFamily: 'DM Mono, monospace', fontSize: '26px', fontWeight: 600, color: risk.color }}>{ratio}%</div>
+            <div className="text-left sm:text-right">
+              <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 'clamp(1.25rem,5vw,1.625rem)', fontWeight: 600, color: risk.color }}>{ratio}%</div>
               <div style={{ fontSize: '11px', fontWeight: 700, padding: '4px 13px', borderRadius: '20px', marginTop: '4px', background: risk.tagBg, color: risk.color }}>
                 {risk.level}
               </div>
