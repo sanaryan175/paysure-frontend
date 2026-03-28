@@ -27,8 +27,8 @@ export default function CTAStrip() {
           letterSpacing: '-1.2px',
         }}>
           Still unsure? Analyze your risk<br className="hidden sm:block" />{' '}
-          before making{' '}
-          <span style={{ color: 'var(--gold-light)' }}>a decision.</span>
+    before making{' '}
+    <span style={{ color: 'var(--gold-light)' }}>a decision.</span>
         </h2>
 
         <button

@@ -63,6 +63,9 @@ export default function LoginPage() {
           <p style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>
             Login to access your risk analysis tools
           </p>
+          <p className="mt-3 max-w-[380px] mx-auto" style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: 1.55 }}>
+            Your data is encrypted &amp; never stored permanently.
+          </p>
         </div>
 
         {/* Card */}

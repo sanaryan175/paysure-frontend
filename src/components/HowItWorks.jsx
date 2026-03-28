@@ -1,15 +1,46 @@
 import { useState } from 'react';
 
 const steps = [
-  { num: '01', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a227" strokeWidth="1.8"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/></svg>, title: 'Select your tool', desc: 'Choose between Loan Risk, Scam Check, or Agreement Analysis based on your need' },
-  { num: '02', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a227" strokeWidth="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>, title: 'Enter details or upload', desc: 'Fill in your loan terms, paste a suspicious message, or upload a financial document' },
-  { num: '03', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a227" strokeWidth="1.8"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>, title: 'Get AI-powered insights', desc: 'Receive clear risk scores, red flags, and actionable suggestions in seconds' },
+  { num: '01', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a227" strokeWidth="1.8"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/></svg>, title: 'Pick what you need', desc: 'Loan Risk, Scam Check, or Agreement Analysis — one flow per decision' },
+  { num: '02', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a227" strokeWidth="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>, title: 'Paste a suspicious message / upload a loan agreement', desc: 'Add your numbers where needed, paste tricky SMS or email copy, or drop a PDF agreement' },
+  { num: '03', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a227" strokeWidth="1.8"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>, title: 'Get risk score + hidden red flags + action plan', desc: 'See what matters, what to watch for, and what to do next — not generic filler' },
 ];
 
 function getRisk(ratio) {
-  if (ratio < 30) return { level: 'Safe', color: '#1a7a3c', bg: '#f5fdf7', border: '#a7e0be', tagBg: '#f0faf3' };
-  if (ratio < 45) return { level: 'Moderate', color: '#b8942a', bg: '#fffdf0', border: '#e8d48a', tagBg: '#fdf8ec' };
-  return { level: 'High Risk', color: '#b83232', bg: '#fff8f5', border: '#f5c0b0', tagBg: '#fdf0f0' };
+  if (ratio < 30) {
+    return {
+      level: 'Safe',
+      color: '#1a7a3c',
+      bg: '#f5fdf7',
+      border: '#a7e0be',
+      tagBg: '#f0faf3',
+      verdictEmoji: '🟢',
+      verdict: 'Safe to proceed',
+      verdictSub: 'EMI load is in a healthy range — this structure looks sustainable for most income paths.',
+    };
+  }
+  if (ratio < 45) {
+    return {
+      level: 'Borderline',
+      color: '#b8942a',
+      bg: '#fffdf0',
+      border: '#e8d48a',
+      tagBg: '#fdf8ec',
+      verdictEmoji: '🟡',
+      verdict: 'You are at borderline risk',
+      verdictSub: 'You are in the stress zone — a medical bill, rent hike, or income dip could flip this into danger.',
+    };
+  }
+  return {
+    level: 'High Risk',
+    color: '#b83232',
+    bg: '#fff8f5',
+    border: '#f5c0b0',
+    tagBg: '#fdf0f0',
+    verdictEmoji: '🔴',
+    verdict: 'This loan is financially dangerous',
+    verdictSub: 'EMI is eating too much income. As-is, this verdict is: do not commit until you reduce EMI or principal.',
+  };
 }
 
 export default function HowItWorks() {
@@ -28,7 +59,7 @@ export default function HowItWorks() {
         <div className="text-center mb-10 sm:mb-14">
           <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--gold-mid)', letterSpacing: '1.8px', textTransform: 'uppercase', marginBottom: '10px' }}>Process</p>
           <h2 className="text-[clamp(1.5rem,4vw,2.125rem)] tracking-tight" style={{ letterSpacing: '-1px', fontFamily: 'Syne, sans-serif', fontWeight: 800 }}>Simple, guided risk analysis</h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '15px', marginTop: '10px' }}>Get clear insights in three easy steps</p>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '15px', marginTop: '10px' }}>From paste or upload to a concrete verdict in three steps</p>
         </div>
 
         {/* Steps */}
@@ -48,12 +79,17 @@ export default function HowItWorks() {
 
         {/* Live Calculator */}
         <div className="rounded-2xl p-4 sm:p-7 max-w-2xl mx-auto"
-          style={{ background: 'var(--bg-page)', border: '1.5px solid var(--border-warm)' }}>
-          <div className="flex items-center gap-2 mb-6">
-            <span className="w-2 h-2 rounded-full" style={{ background: 'var(--gold-mid)' }} />
-            <span style={{ fontFamily: 'Syne, sans-serif', fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)' }}>
-              Try it live — Loan Risk Calculator
-            </span>
+          style={{ background: 'var(--bg-page)', border: '1.5px solid var(--border-warm)', boxShadow: '0 4px 28px rgba(28,26,23,0.06)' }}>
+          <div className="mb-5">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-2 h-2 rounded-full" style={{ background: 'var(--gold-mid)' }} />
+              <span style={{ fontFamily: 'Syne, sans-serif', fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)' }}>
+                Try it live — Loan Risk Calculator
+              </span>
+            </div>
+            <p style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: 1.55, paddingLeft: '14px' }}>
+              Move the sliders — PaySure judges your EMI against income in real time, like a strict financial second opinion.
+            </p>
           </div>
 
           {[
@@ -74,15 +110,42 @@ export default function HowItWorks() {
             </div>
           ))}
 
-          <div className="rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 sm:gap-0 mt-2 transition-all"
-            style={{ background: risk.bg, border: `1.5px solid ${risk.border}` }}>
+          {/* Verdict — emotional + authoritative */}
+          <div
+            aria-live="polite"
+            className="rounded-2xl p-4 sm:p-5 mb-3 transition-all"
+            style={{
+              background: risk.bg,
+              border: `1.5px solid ${risk.border}`,
+              borderLeft: `5px solid ${risk.color}`,
+              boxShadow: '0 2px 16px rgba(28,26,23,0.04)',
+            }}
+          >
+            <div style={{ fontSize: '10px', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: '10px' }}>
+              Verdict
+            </div>
+            <div className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-3">
+              <span style={{ fontSize: '22px', lineHeight: 1 }} aria-hidden>{risk.verdictEmoji}</span>
+              <div>
+                <p style={{ fontFamily: 'Syne, sans-serif', fontSize: 'clamp(1.05rem,3.5vw,1.25rem)', fontWeight: 800, color: risk.color, letterSpacing: '-0.02em', lineHeight: 1.3, marginBottom: '8px' }}>
+                  {risk.verdict}
+                </p>
+                <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
+                  {risk.verdictSub}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 sm:gap-0 transition-all"
+            style={{ background: '#fff', border: `1.5px solid ${risk.border}` }}>
             <div>
               <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-faint)', letterSpacing: '0.3px', textTransform: 'uppercase' }}>EMI-to-Income Ratio</div>
               <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '3px' }}>Total repayment: ₹{total}</div>
             </div>
             <div className="text-left sm:text-right">
               <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 'clamp(1.25rem,5vw,1.625rem)', fontWeight: 600, color: risk.color }}>{ratio}%</div>
-              <div style={{ fontSize: '11px', fontWeight: 700, padding: '4px 13px', borderRadius: '20px', marginTop: '4px', background: risk.tagBg, color: risk.color }}>
+              <div style={{ fontSize: '11px', fontWeight: 700, padding: '4px 13px', borderRadius: '20px', marginTop: '4px', display: 'inline-block', background: risk.tagBg, color: risk.color }}>
                 {risk.level}
               </div>
             </div>

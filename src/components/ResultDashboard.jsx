@@ -33,6 +33,26 @@ export default function ResultDashboard() {
             </div>
           </div>
 
+          {/* AI intelligence strip */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-0 divide-y sm:divide-y-0 sm:divide-x divide-[var(--border-light)] px-4 sm:px-7 py-4"
+            style={{ background: 'linear-gradient(180deg, #faf8f4 0%, #fff 100%)', borderBottom: '1px solid var(--border-light)' }}>
+            <div className="py-3 sm:py-0 sm:pr-4">
+              <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: '6px' }}>AI Confidence Score</div>
+              <div style={{ fontFamily: 'DM Mono, monospace', fontSize: '1.25rem', fontWeight: 600, color: 'var(--green)' }}>87%</div>
+              <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '4px' }}>High agreement across risk signals</div>
+            </div>
+            <div className="py-3 sm:py-0 sm:px-4">
+              <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: '6px' }}>Risk factors detected</div>
+              <div style={{ fontFamily: 'DM Mono, monospace', fontSize: '1.25rem', fontWeight: 600, color: 'var(--gold-deep)' }}>3</div>
+              <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '4px' }}>Structured vs. typical safe profile</div>
+            </div>
+            <div className="py-3 sm:py-0 sm:pl-4">
+              <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: '6px' }}>Decision</div>
+              <div style={{ fontFamily: 'Syne, sans-serif', fontSize: '15px', fontWeight: 800, color: 'var(--gold-deep)' }}>Needs caution</div>
+              <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '4px' }}>Proceed only after tightening terms</div>
+            </div>
+          </div>
+
           {/* Metrics */}
           <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y divide-[var(--border-light)]" style={{ borderBottom: '1px solid var(--border-light)' }}>
             {[['Monthly EMI', '₹8,500', false], ['Income Usage', '42%', true], ['Disposable', '₹12,000', false], ['Tenure', '24 mo', false]].map(([l, v, warn]) => (
@@ -50,7 +70,7 @@ export default function ResultDashboard() {
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
                 Why this risk?
               </h4>
-              {['EMI exceeds recommended 40% threshold', 'Low savings buffer after expenses'].map(pt => (
+              {['EMI exceeds recommended 40% threshold', 'Low savings buffer after expenses', 'Tenure stacks heavy total interest vs. income'].map(pt => (
                 <div key={pt} style={{ display: 'flex', alignItems: 'flex-start', gap: '7px', fontSize: '13px', color: 'var(--text-faint)', marginBottom: '9px' }}>
                   <span style={{ width: '5px', height: '5px', background: 'var(--red)', borderRadius: '50%', flexShrink: 0, marginTop: '7px' }} />
                   {pt}

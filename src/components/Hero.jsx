@@ -26,15 +26,19 @@ export default function Hero() {
             Financial Risk Analysis Platform
           </div>
 
-          <h1 className="text-[clamp(2rem,6vw,3.125rem)] leading-[1.08] tracking-tight sm:tracking-[-0.06em] text-[var(--text-primary)] mb-4 sm:mb-[18px]" style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800 }}>
+          <h1 className="text-[clamp(2rem,6vw,3.125rem)] leading-[1.08] tracking-tight sm:tracking-[-0.06em] text-[var(--text-primary)] mb-3 sm:mb-4" style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800 }}>
             Know the risk<br className="hidden sm:block" /> before you<br className="hidden sm:block" />{' '}
             <span style={{ color: 'var(--gold-mid)' }}>commit money.</span>
           </h1>
 
-          <p className="mx-auto lg:mx-0 text-[15px] sm:text-base max-w-[440px]" style={{ color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '28px' }}>
-            Evaluate loans, detect scams, and analyze agreements — with clear, AI-driven insights before making any financial decision.
+          <p className="mx-auto lg:mx-0 text-[15px] sm:text-[16px] max-w-[480px] font-semibold text-[var(--text-primary)] mb-2" style={{ lineHeight: '1.55' }}>
+            Avoid scams, bad loans, and hidden traps in seconds.
+          </p>
+          <p className="mx-auto lg:mx-0 text-[13px] sm:text-sm max-w-[480px] mb-4 sm:mb-5" style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>
+            Used by students, professionals &amp; families to avoid financial mistakes.
           </p>
 
+          
           <div className="flex items-center justify-center lg:justify-start gap-3">
             <button
               type="button"

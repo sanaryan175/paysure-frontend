@@ -36,7 +36,10 @@ export default function Pricing() {
         <div className="max-w-md mx-auto rounded-2xl p-6 sm:p-10 text-center"
           style={{ background: '#fff', border: '2px solid var(--gold-border)', boxShadow: '0 8px 32px rgba(201,162,39,0.08)' }}>
           <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 'clamp(2.5rem,12vw,3.5rem)', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '4px' }}>₹0</div>
-          <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '28px' }}>Free Forever</div>
+          <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '8px' }}>Free Forever</div>
+          <p style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '28px', lineHeight: 1.5 }}>
+            ₹0 today. Could save you ₹50,000 tomorrow.
+          </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '13px', marginBottom: '28px', textAlign: 'left' }}>
             {perks.map(p => (
