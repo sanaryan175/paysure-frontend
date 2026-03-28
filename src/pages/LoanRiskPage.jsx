@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import StepIndicator    from '../components/loan/StepIndicator.jsx';
 import Step1Financial   from '../components/loan/Step1Financial.jsx';
@@ -5,24 +6,24 @@ import Step2LoanDetails from '../components/loan/Step2LoanDetails.jsx';
 import Step3Upload      from '../components/loan/Step3Upload.jsx';
 import LoanResult       from '../components/loan/LoanResult.jsx';
 import { analyzeLoan }  from '../services/loanService.js';
-
+ 
 const initialForm = {
   monthlyIncome: '', monthlyExpenses: '', existingEMIs: '',
   savings: '', jobType: '',
   loanAmount: '', interestRate: '', tenureMonths: '',
   _hasDocument: false,
 };
-
+ 
 const validateStep = (step, form) => {
   const errors = {};
-
+ 
   if (step === 1) {
     if (!form.monthlyIncome  || Number(form.monthlyIncome)  <= 0) errors.monthlyIncome  = 'Required';
     if (form.monthlyExpenses === '' || Number(form.monthlyExpenses) < 0) errors.monthlyExpenses = 'Required';
     if (form.savings === '' || Number(form.savings) < 0) errors.savings = 'Required';
     if (!form.jobType) errors.jobType = 'Please select job type';
   }
-
+ 
   if (step === 2) {
     // If user has a document — all fields optional
     // If no document — loan amount and rate required for simulation
@@ -32,10 +33,10 @@ const validateStep = (step, form) => {
       if (!form.tenureMonths || Number(form.tenureMonths) <= 0) errors.tenureMonths  = 'Required for simulation';
     }
   }
-
+ 
   return errors;
 };
-
+ 
 export default function LoanRiskPage() {
   const [step,       setStep]       = useState(1);
   const [form,       setForm]       = useState(initialForm);
@@ -45,26 +46,26 @@ export default function LoanRiskPage() {
   const [result,     setResult]     = useState(null);
   const [apiError,   setApiError]   = useState(null);
   const [mismatch,   setMismatch]   = useState(null); // mismatch detection
-
+ 
   const handleChange = (field, value) => {
     setForm(prev => ({ ...prev, [field]: value }));
     if (errors[field]) setErrors(prev => ({ ...prev, [field]: undefined }));
   };
-
+ 
   const handleNext = () => {
     const errs = validateStep(step, form);
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
     setErrors({});
     setStep(s => s + 1);
   };
-
+ 
   const handleBack = () => { setErrors({}); setStep(s => s - 1); };
-
+ 
   // Check for mismatch between manual entry and document extracted values
   const checkMismatch = (responseData) => {
     if (!responseData.documentUploaded) return null;
     const mismatches = [];
-
+ 
     // If user entered loan amount and doc found different one
     if (form.loanAmount && responseData.interestRateFound) {
       const docRate = parseFloat(responseData.interestRateFound);
@@ -75,35 +76,38 @@ export default function LoanRiskPage() {
     }
     return mismatches.length > 0 ? mismatches : null;
   };
-
+ 
   const handleSubmit = async () => {
     setLoading(true);
     setApiError(null);
     setMismatch(null);
-
+ 
     try {
       const fd = new FormData();
-
-      // Append all form fields (skip internal _hasDocument flag)
-      Object.entries(form).forEach(([k, v]) => {
-        if (k !== '_hasDocument' && v !== '') fd.append(k, v);
-      });
-
-      // Defaults
-      if (!form.existingEMIs) fd.set('existingEMIs', '0');
-
-      // If has document but skipped loan details — send placeholder
-      // Backend will extract from document
+ 
+      // Append financial fields — always required
+      fd.append('monthlyIncome',   form.monthlyIncome);
+      fd.append('monthlyExpenses', form.monthlyExpenses);
+      fd.append('existingEMIs',    form.existingEMIs || '0');
+      fd.append('savings',         form.savings);
+      fd.append('jobType',         form.jobType);
+ 
+      // Append loan fields only if filled
+      if (form.loanAmount)   fd.append('loanAmount',   form.loanAmount);
+      if (form.interestRate) fd.append('interestRate', form.interestRate);
+      if (form.tenureMonths) fd.append('tenureMonths', form.tenureMonths);
+ 
+      // Flag if doc-only mode
       if (form._hasDocument && !form.loanAmount) fd.append('loanDetailsFromDoc', 'true');
-
+ 
       if (file) fd.append('document', file);
-
+ 
       const res = await analyzeLoan(fd);
-
+ 
       // Check for mismatches
       const mismatches = checkMismatch(res.data);
       if (mismatches) setMismatch(mismatches);
-
+ 
       setResult(res.data);
     } catch (err) {
       const msg = err.response?.data?.message || err.message || 'Something went wrong. Please try again.';
@@ -113,7 +117,7 @@ export default function LoanRiskPage() {
       setLoading(false);
     }
   };
-
+ 
   const handleReset = () => {
     setStep(1);
     setForm(initialForm);
@@ -123,11 +127,11 @@ export default function LoanRiskPage() {
     setApiError(null);
     setMismatch(null);
   };
-
+ 
   return (
-    <div className="min-h-screen py-8 sm:py-12 px-3 sm:px-4" style={{ background: 'var(--bg-page)' }}>
-      <div className="max-w-2xl mx-auto w-full min-w-0">
-
+    <div className="min-h-screen py-12 px-4" style={{ background: 'var(--bg-page)' }}>
+      <div className="max-w-2xl mx-auto">
+ 
         {!result && (
           <div className="text-center mb-10">
             <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold mb-4 uppercase tracking-wide"
@@ -135,7 +139,7 @@ export default function LoanRiskPage() {
               <span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--gold-mid)' }} />
               Loan Risk Analyzer
             </div>
-            <h1 className="text-[clamp(1.5rem,5vw,2rem)]" style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, letterSpacing: '-1px', color: 'var(--text-primary)', lineHeight: '1.1' }}>
+            <h1 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '32px', letterSpacing: '-1px', color: 'var(--text-primary)', lineHeight: '1.1' }}>
               Loan Affordability &amp;<br />Risk Analyzer
             </h1>
             <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginTop: '10px' }}>
@@ -143,7 +147,7 @@ export default function LoanRiskPage() {
             </p>
           </div>
         )}
-
+ 
         {result ? (
           <>
             {/* Mismatch warning */}
@@ -168,11 +172,11 @@ export default function LoanRiskPage() {
             <LoanResult data={result} onReset={handleReset} />
           </>
         ) : (
-          <div className="rounded-2xl p-4 sm:p-8"
+          <div className="rounded-2xl p-8"
             style={{ background: '#fff', border: '1.5px solid var(--border-warm)', boxShadow: '0 4px 24px rgba(28,26,23,0.05)' }}>
-
+ 
             <StepIndicator currentStep={step} />
-
+ 
             {step === 1 && (
               <Step1Financial data={form} errors={errors} onChange={handleChange} />
             )}
@@ -191,7 +195,7 @@ export default function LoanRiskPage() {
                 loanData={{ loanAmount: form.loanAmount, interestRate: form.interestRate, tenureMonths: form.tenureMonths }}
               />
             )}
-
+ 
             {/* API error */}
             {apiError && (
               <div className="mt-4 rounded-xl p-3.5 text-sm font-medium flex items-start gap-2"
@@ -204,41 +208,39 @@ export default function LoanRiskPage() {
                 {apiError}
               </div>
             )}
-
+ 
             {/* Navigation */}
-            <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3 mt-8 pt-6"
+            <div className="flex items-center justify-between mt-8 pt-6"
               style={{ borderTop: '1px solid var(--border-light)' }}>
-
+ 
               {step > 1 ? (
-                <button onClick={handleBack} className="w-full sm:w-auto"
+                <button onClick={handleBack}
                   style={{ background: 'transparent', border: '1.5px solid var(--border-mid)', color: 'var(--text-faint)', borderRadius: '11px', padding: '10px 20px', fontSize: '14px', fontWeight: 500, cursor: 'pointer', fontFamily: 'DM Sans, sans-serif', transition: 'all .15s' }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--gold-mid)'; e.currentTarget.style.color = 'var(--gold-deep)'; }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border-mid)'; e.currentTarget.style.color = 'var(--text-faint)'; }}>
                   ← Back
                 </button>
-              ) : <div className="hidden sm:block" />}
-
+              ) : <div />}
+ 
               {step < 3 ? (
-                <button onClick={handleNext} className="w-full sm:w-auto"
+                <button onClick={handleNext}
                   style={{ background: 'linear-gradient(135deg, var(--gold-mid), var(--gold-light))', color: '#fff', border: 'none', borderRadius: '11px', padding: '10px 28px', fontSize: '14px', fontWeight: 700, cursor: 'pointer', fontFamily: 'DM Sans, sans-serif', transition: 'all .15s' }}
                   onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 6px 18px rgba(201,162,39,0.28)'; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}>
                   Continue →
                 </button>
               ) : (
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+                <div className="flex items-center gap-3">
                   {/* Skip document option */}
                   {!file && (
                     <button onClick={handleSubmit}
                       disabled={loading}
-                      className="w-full sm:w-auto"
                       style={{ background: 'transparent', border: '1.5px solid var(--border-mid)', color: 'var(--text-faint)', borderRadius: '11px', padding: '10px 18px', fontSize: '13px', fontWeight: 500, cursor: loading ? 'not-allowed' : 'pointer', fontFamily: 'DM Sans, sans-serif' }}>
                       Skip & Analyze →
                     </button>
                   )}
                   <button onClick={handleSubmit}
                     disabled={loading}
-                    className="w-full sm:w-auto justify-center"
                     style={{
                       background: loading ? '#e0dbd0' : 'linear-gradient(135deg, var(--gold-mid), var(--gold-light))',
                       color: '#fff', border: 'none', borderRadius: '11px', padding: '10px 28px',
@@ -266,3 +268,4 @@ export default function LoanRiskPage() {
     </div>
   );
 }
+ 

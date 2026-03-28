@@ -42,6 +42,7 @@ function MetricCard({ label, value, meaning, highlight }) {
 
 export default function LoanResult({ data, onReset }) {
   const vc = verdictConfig[data.overallVerdict] || verdictConfig['Needs Caution'];
+  const loanMetricsOk = data.loanMetricsAvailable !== false;
 
   const emiColor   = data.emiToIncomeRatio < 30 ? '#1a7a3c' : data.emiToIncomeRatio < 50 ? '#b8942a' : '#b83232';
   const dispColor  = data.disposableIncome > 0 ? 'var(--text-primary)' : '#b83232';
@@ -87,6 +88,16 @@ export default function LoanResult({ data, onReset }) {
           Your Financial Capacity
         </div>
 
+        {!loanMetricsOk && data.loanInferenceNote && (
+          <div className="rounded-xl px-4 py-3 mb-4 flex gap-2 items-start"
+            style={{ background: '#eff6ff', border: '1px solid #bfdbfe' }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2" className="flex-shrink-0 mt-0.5">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span style={{ fontSize: '12.5px', color: '#1e40af', lineHeight: '1.5' }}>{data.loanInferenceNote}</span>
+          </div>
+        )}
+
         {/* Score badges */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
           {[
@@ -104,11 +115,12 @@ export default function LoanResult({ data, onReset }) {
         {/* Metrics with meaning */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <MetricCard
-            label="Monthly EMI"
-            value={`₹${data.calculatedEMI?.toLocaleString('en-IN')}`}
+            label={loanMetricsOk ? 'Monthly EMI' : 'New loan EMI'}
+            value={loanMetricsOk ? `₹${data.calculatedEMI?.toLocaleString('en-IN')}` : '—'}
+            meaning={loanMetricsOk ? undefined : 'Not calculated — enter loan amount, rate, and tenure, or rely on values read from your document.'}
           />
           <MetricCard
-            label="EMI Burden"
+            label="Debt to income"
             value={`${data.emiToIncomeRatio}%`}
             meaning={emiMeaning}
             highlight={emiColor}
@@ -264,10 +276,17 @@ export default function LoanResult({ data, onReset }) {
 
       {/* ── 6. Summary numbers ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-        <MetricCard label="Total Repayment"   value={`₹${data.totalRepayment?.toLocaleString('en-IN')}`}
-          meaning={`₹${data.totalInterest?.toLocaleString('en-IN')} is interest cost`} />
-        <MetricCard label="Total Interest"    value={`₹${data.totalInterest?.toLocaleString('en-IN')}`}
-          meaning="Amount paid above principal" highlight="#b83232" />
+        <MetricCard
+          label="Total Repayment"
+          value={loanMetricsOk ? `₹${data.totalRepayment?.toLocaleString('en-IN')}` : '—'}
+          meaning={loanMetricsOk ? `₹${data.totalInterest?.toLocaleString('en-IN')} is interest cost` : 'Requires a defined loan (amount, rate, tenure).'}
+        />
+        <MetricCard
+          label="Total Interest"
+          value={loanMetricsOk ? `₹${data.totalInterest?.toLocaleString('en-IN')}` : '—'}
+          meaning={loanMetricsOk ? 'Amount paid above principal' : 'Not calculated without full loan details.'}
+          highlight={loanMetricsOk ? '#b83232' : undefined}
+        />
       </div>
 
       {/* Reset */}
